@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, url_for
-from odeta import database
+from odeta import localbase
 
-db = database('my_database.db')
+db = localbase('my_database.db')
 table = db('my_table')
 
 app = Flask(__name__)
@@ -47,6 +47,16 @@ def add():
         data_all = table.fetchall()  # Retrieve all data from the table
         print(data_all)  # Debugging statement
         return render_template('add.html', data=data_all)  # Pass data to the template
+    return redirect(url_for('login'))
+
+@app.route('/delete/<id>', methods=["GET", "POST"])
+def delete(id):
+    if 'username' in session:
+        table_row = table.delete(id)
+        print("data deleted.")
+
+        return render_template('add.html', data=table.fetchall() )  # Pass data to the template
+
     return redirect(url_for('login'))
 
 @app.route('/content')
