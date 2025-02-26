@@ -1,0 +1,3 @@
+1. Use tailwind instead of custom css. everywhere.
+2. Do not repeat code in content.html and add.html -> table of data is replicated and coded again.
+    reduce redandancy.
